@@ -9,6 +9,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
@@ -22,39 +23,42 @@
             justify-content: center;
             overflow: hidden;
             text-align: center;
-            padding: 20px;
+            padding: 15px;
+            touch-action: manipulation;
         }
 
         .container {
-            max-width: 800px;
             width: 100%;
+            max-width: 100%;
         }
 
         h1 {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
+            font-size: 1.8rem;
+            margin-bottom: 15px;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            line-height: 1.3;
         }
 
         .message {
-            font-size: 1.2rem;
-            line-height: 1.6;
-            margin-bottom: 30px;
+            font-size: 1rem;
+            line-height: 1.5;
+            margin-bottom: 20px;
             background: rgba(255, 255, 255, 0.1);
-            padding: 20px;
+            padding: 15px;
             border-radius: 10px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
         }
 
         .ball-container {
             position: relative;
-            height: 300px;
-            margin: 30px 0;
+            height: 200px;
+            margin: 20px 0;
+            width: 100%;
         }
 
         .football {
-            width: 100px;
-            height: 100px;
+            width: 80px;
+            height: 80px;
             background: white;
             border-radius: 50%;
             position: absolute;
@@ -63,7 +67,7 @@
             transform: translate(-50%, -50%);
             cursor: pointer;
             transition: transform 0.3s;
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
             background-image: 
                 radial-gradient(circle at 30% 30%, #ffffff, #cccccc),
                 linear-gradient(45deg, transparent 45%, #000000 45%, #000000 55%, transparent 55%),
@@ -71,21 +75,23 @@
                 linear-gradient(90deg, transparent 45%, #000000 45%, #000000 55%, transparent 55%),
                 linear-gradient(0deg, transparent 45%, #000000 45%, #000000 55%, transparent 55%);
             background-blend-mode: overlay, normal, normal, normal, normal;
+            touch-action: manipulation;
         }
 
-        .football:hover {
+        .football:active {
             transform: translate(-50%, -50%) scale(1.1);
         }
 
         .congratulation {
             opacity: 0;
-            transform: translateY(50px);
+            transform: translateY(30px);
             transition: all 1s ease;
             background: rgba(255, 255, 255, 0.15);
-            padding: 30px;
-            border-radius: 15px;
-            margin-top: 20px;
-            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.3);
+            padding: 20px;
+            border-radius: 12px;
+            margin-top: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+            width: 100%;
         }
 
         .congratulation.show {
@@ -94,20 +100,21 @@
         }
 
         .congratulation h2 {
-            font-size: 2rem;
-            margin-bottom: 15px;
+            font-size: 1.6rem;
+            margin-bottom: 12px;
             color: #ffcc00;
         }
 
         .congratulation p {
-            font-size: 1.2rem;
-            margin-bottom: 10px;
+            font-size: 1rem;
+            margin-bottom: 8px;
+            line-height: 1.4;
         }
 
         .signature {
-            margin-top: 20px;
+            margin-top: 15px;
             font-style: italic;
-            font-size: 1.3rem;
+            font-size: 1.1rem;
             color: #ffcc00;
         }
 
@@ -116,18 +123,18 @@
             bottom: 0;
             left: 0;
             width: 100%;
-            height: 100px;
+            height: 70px;
             background: linear-gradient(to top, #2e7d32, #4caf50);
             z-index: -1;
         }
 
         .goal {
             position: absolute;
-            bottom: 100px;
-            right: 10%;
-            width: 150px;
-            height: 80px;
-            border: 5px solid white;
+            bottom: 70px;
+            right: 5%;
+            width: 100px;
+            height: 60px;
+            border: 4px solid white;
             border-bottom: none;
         }
 
@@ -139,24 +146,30 @@
         }
 
         .cloud1 {
-            width: 100px;
-            height: 40px;
-            top: 20%;
-            left: 10%;
+            width: 70px;
+            height: 30px;
+            top: 15%;
+            left: 5%;
         }
 
         .cloud2 {
-            width: 120px;
-            height: 50px;
-            top: 15%;
-            right: 15%;
+            width: 90px;
+            height: 40px;
+            top: 10%;
+            right: 10%;
         }
 
         .cloud3 {
-            width: 80px;
-            height: 35px;
-            top: 30%;
-            left: 25%;
+            width: 60px;
+            height: 25px;
+            top: 25%;
+            left: 20%;
+        }
+
+        .instructions {
+            font-size: 0.9rem;
+            margin-top: 10px;
+            color: #cccccc;
         }
 
         @keyframes flyAway {
@@ -167,27 +180,28 @@
                 transform: translate(-30%, -70%) scale(1.1);
             }
             100% {
-                transform: translate(1000px, -500px) scale(0.5);
+                transform: translate(500px, -300px) scale(0.5);
                 opacity: 0;
             }
         }
 
-        @media (max-width: 600px) {
-            h1 {
-                font-size: 1.8rem;
+        /* Анимация для конфеtti */
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: #f00;
+            opacity: 0;
+        }
+
+        @keyframes confetti-fall {
+            0% {
+                transform: translateY(-100px) rotate(0deg);
+                opacity: 1;
             }
-            
-            .message, .congratulation p {
-                font-size: 1rem;
-            }
-            
-            .congratulation h2 {
-                font-size: 1.5rem;
-            }
-            
-            .football {
-                width: 80px;
-                height: 80px;
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
             }
         }
     </style>
@@ -198,45 +212,11 @@
         
         <div class="message">
             <p>Нажми на футбольный мяч, чтобы забить гол и получить поздравление!</p>
+            <p class="instructions">(Коснись мяча на экране)</p>
         </div>
         
         <div class="ball-container">
             <div class="stadium"></div>
             <div class="goal"></div>
             <div class="cloud cloud1"></div>
-            <div class="cloud cloud2"></div>
-            <div class="cloud cloud3"></div>
-            <div class="football" id="football"></div>
-        </div>
-        
-        <div class="congratulation" id="congratulation">
-            <h2>Поздравляем с Днем Рождения!</h2>
-            <p>Пусть каждый твой удар будет точным, как пенальти!</p>
-            <p>Желаем побед на поле и в жизни!</p>
-            <p>Пусть фортуна всегда будет на твоей стороне!</p>
-            <div class="signature">От всех болельщиков</div>
-        </div>
-    </div>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const football = document.getElementById('football');
-            const congratulation = document.getElementById('congratulation');
-            
-            football.addEventListener('click', function() {
-                // Анимация удара мяча
-                football.style.animation = 'flyAway 2s forwards';
-                
-                // Звуковой эффект (если нужен)
-                // const kickSound = new Audio('kick-sound.mp3');
-                // kickSound.play();
-                
-                // Показываем поздравление с задержкой
-                setTimeout(function() {
-                    congratulation.classList.add('show');
-                }, 1500);
-            });
-        });
-    </script>
-</body>
-</html>
+           
